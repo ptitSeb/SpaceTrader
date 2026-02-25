@@ -511,6 +511,7 @@ nextInstruction2:
 					Com_Printf( "%s---> systemcall(%i)\n", DEBUGSTR, -1 - programCounter );
 				}
 #endif
+if(opStack-stack==1) Com_Printf( "%s---> systemcall(%i)\n", DEBUGSTR, -1 - programCounter );
 				// save the stack to allow recursive VM entry
 				temp = vm->callLevel;
 				vm->programStack = programStack - 4;

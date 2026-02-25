@@ -68,7 +68,9 @@ Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
 
 // don't use DGA anymore
 //#include <X11/extensions/xf86dga.h>
+#ifndef PANDORA
 #include <X11/extensions/xf86vmode.h>
+#endif
 
 extern sqlInfo_t com_db;
 
@@ -118,8 +120,8 @@ static int mouseResetTime = 0;
 
 static cvar_t *in_mouse;
 static cvar_t *in_dgamouse; // user pref for dga mouse
-cvar_t *in_subframe;
-cvar_t *in_nograb; // this is strictly for developers
+extern cvar_t *in_subframe;
+extern cvar_t *in_nograb; // this is strictly for developers
 
 // bk001130 - from cvs1.17 (mkv), but not static
 cvar_t *in_joystick = NULL;
@@ -153,7 +155,7 @@ static int mouse_threshold;
 //not implemented this side yet.  Force it to false restores old behavior
 bool glimp_suspendRender = false;
 
-qboolean app_active;
+extern qboolean app_active;
 
 /*****************************************************************************
 ** KEYBOARD
@@ -773,7 +775,9 @@ static void GLimp_GetDisplayModes() {
 			");"
 			);
 
-	
+
+	#ifdef PANDORA
+	#else
 	for (i=0; i < ScreenCount(dpy); i++) {
 		XF86VidModeGetAllModeLines( dpy, i, &num_vidmodes, &vidmodes );
 		sql_prepare ( &com_db, "INSERT INTO monitors(dev_name, x, y, w, h, gl_level) VALUES(?,?,?,?,?,?);" );
@@ -801,6 +805,7 @@ static void GLimp_GetDisplayModes() {
 
 		}
 	}
+	#endif
 }
 
 /*
@@ -808,6 +813,7 @@ static void GLimp_GetDisplayModes() {
 **
 ** This routine should only be called if glConfig.deviceSupportsGamma is TRUE
 */
+#if 0
 void GLimp_SetGamma( unsigned char red[ 256 ], unsigned char green[ 256 ], unsigned char blue[ 256 ] )
 {
 	// NOTE TTimo we get the gamma value from cvar, because we can't work with the s_gammatable
@@ -822,7 +828,7 @@ void GLimp_SetGamma( unsigned char red[ 256 ], unsigned char green[ 256 ], unsig
 	XF86VidModeSetGamma( dpy, scrnum, &gamma );
 #endif /* HAVE_XF86VIDMODE */
 }
-
+#endif
 /*
 ** GLimp_Shutdown
 **
@@ -1054,7 +1060,12 @@ int GLW_SetMode( const char *drivername, int mode, qboolean fullscreen )
 
 
 		// change to the mode
+		#ifdef PANDORA
+		if(!w) w = 800;
+		if(!h) h = 480;
+		#else
 		XF86VidModeSwitchToMode( dpy, scrnum, vidmodes[ mode_id ] );
+		#endif
 		vidmode_active = qtrue;
 
 		// Move the viewport to top left
@@ -1420,8 +1431,13 @@ void GLimp_Init( void )
 
 	r_previousglDriver = ri.Cvar_Get( "r_previousglDriver", "", CVAR_ROM );
 
+	#ifdef PANDORA
+	r_mode = ri.Cvar_Get( "r_mode", "11", CVAR_ARCHIVE | CVAR_LATCH );
+	r_fullscreen = ri.Cvar_Get( "r_fullscreen", "1", CVAR_ARCHIVE | CVAR_LATCH );
+	#else
 	r_mode = ri.Cvar_Get( "r_mode", "4", CVAR_ARCHIVE | CVAR_LATCH );
 	r_fullscreen = ri.Cvar_Get( "r_fullscreen", "0", CVAR_ARCHIVE | CVAR_LATCH );
+	#endif
 	r_fsmode = ri.Cvar_Get( "r_fsmode", "0", CVAR_ARCHIVE | CVAR_LATCH );
 	r_fsmonitor = ri.Cvar_Get( "r_fsmonitor", "0", CVAR_ARCHIVE | CVAR_LATCH );
 

@@ -10,7 +10,15 @@ void Sys_GetCpuInfo( cpuInfo_t *cpuInfo )
 }
 
 #else
-cpuInfo_t cpuInfo;
+extern cpuInfo_t cpuInfo;
+#ifdef ARM
+void Sys_GetCpuInfo( cpuInfo_t *cpuInfo )
+{
+        Com_Memset( cpuInfo, 0, sizeof( cpuInfo_t ) );
+
+
+}
+#else
 
 void __cpuid(int *regs, int ax)
 {
@@ -88,4 +96,5 @@ void Sys_GetCpuInfo( cpuInfo_t *cpuInfo )
 	if( info[3] & (1 << 26) )
 		cpuInfo->sse2.enabled = qtrue;
 }
+#endif
 #endif

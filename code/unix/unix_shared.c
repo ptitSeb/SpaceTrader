@@ -181,6 +181,12 @@ char *strlwr (char *s) {
 extern sqlInfo_t com_db;
 extern void FS_LoadZipFile( const char * filename, const char * basename, const char * ext );
 
+static int fts_sorting(const FTSENT **a, const FTSENT **b)
+{
+	if(!a || !b) return 0;
+	return strcmp((*a)->fts_name, (*b)->fts_name);
+}
+
 void Sys_AddFiles( const char * base, const char * path, const char * ext_search ) {
 
 	char				os_path[ MAX_OSPATH ];
@@ -193,7 +199,7 @@ void Sys_AddFiles( const char * base, const char * path, const char * ext_search
 	if (os_path[strlen(os_path)-1] == '/') 
 		os_path[strlen(os_path)-1] = NULL;
 
-	if ( (findinfo = fts_open( argv, FTS_PHYSICAL, NULL)) )
+	if ( (findinfo = fts_open( argv, FTS_PHYSICAL, fts_sorting)) )
 	{
 		FTSENT *entry;
 		while ( (entry = fts_read(findinfo)) ) {

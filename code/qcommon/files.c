@@ -1887,10 +1887,9 @@ static void FS_SetRestrictions( void ) {
 		FS_ReadFile( "productid.txt", (void **)&productId );
 		if ( productId ) {
 			// check against the hardcoded string
-			int		seed, i;
+			unsigned int		seed, i;
 
-			seed = 5000;
-			for ( i = 0 ; i < sizeof( fs_scrambledProductId ) ; i++ ) {
+			for ( i = 0, seed = 5000 ; i < sizeof( fs_scrambledProductId ) ; i++ ) {
 				if ( ( fs_scrambledProductId[i] ^ (seed&255) ) != productId[i] ) {
 					break;
 				}

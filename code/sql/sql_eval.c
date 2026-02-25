@@ -421,6 +421,9 @@ cellInfo_t sql_eval( sqlInfo_t *db, Expr expr, tableInfo_t * table, cellInfo_t *
 						Com_Error( ERR_FATAL, "invalid column for table '%s' in statement:\n\n%s", t->name, CURRENT_STMT );
 					}
 #endif
+					if ( !c ) {
+						printf( "invalid column for table '%s' in statement:\n", t->name );
+					}
 
 					sp -= 3;
 					stack[ sp++ ].s = (r>=0)?t->rows[ (t->column_count*r) + c->num ].string:"???";

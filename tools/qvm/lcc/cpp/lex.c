@@ -62,6 +62,7 @@ struct	fsm {
 	{START,	{ '\'' },	CC1},
 	{START,	{ '/' },	COM1},
 	{START,	{ EOFC },	S_EOF},
+	{START,	{ '\r' },	S_NL},
 	{START,	{ '\n' },	S_NL},
 	{START,	{ '-' },	MINUS1},
 	{START,	{ '+' },	PLUS1},

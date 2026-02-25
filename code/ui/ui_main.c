@@ -1114,7 +1114,11 @@ static void UI_Update( const char *name )
 						trap_Cvar_SetValue( "r_colorbits", 32 );
 						trap_Cvar_SetValue( "r_depthbits", 24 );
 						trap_Cvar_SetValue( "r_picmip", 0 );
+						#ifdef PANDORA
+						trap_Cvar_SetValue( "r_mode", 11 );
+						#else
 						trap_Cvar_SetValue( "r_mode", 5 );
+						#endif
 						trap_Cvar_SetValue( "r_fastSky", 0 );
 						trap_Cvar_SetValue( "r_inGameVideo", 1 );
 						trap_Cvar_SetValue( "cg_shadows", 1 );
@@ -1129,7 +1133,11 @@ static void UI_Update( const char *name )
 						trap_Cvar_SetValue( "r_colorbits", 0 );
 						trap_Cvar_SetValue( "r_depthbits", 24 );
 						trap_Cvar_SetValue( "r_picmip", 1 );
+						#ifdef PANDORA
+						trap_Cvar_SetValue( "r_mode", 11 );
+						#else
 						trap_Cvar_SetValue( "r_mode", 4 );
+						#endif
 						trap_Cvar_SetValue( "r_fastSky", 0 );
 						trap_Cvar_SetValue( "r_inGameVideo", 1 );
 						trap_Cvar_SetValue( "cg_brassTime", 2500 );
@@ -1144,7 +1152,11 @@ static void UI_Update( const char *name )
 						trap_Cvar_SetValue( "r_colorbits", 0 );
 						trap_Cvar_SetValue( "r_depthbits", 0 );
 						trap_Cvar_SetValue( "r_picmip", 1 );
+						#ifdef PANDORA
+						trap_Cvar_SetValue( "r_mode", 11 );
+						#else
 						trap_Cvar_SetValue( "r_mode", 3 );
+						#endif
 						trap_Cvar_SetValue( "cg_shadows", 0 );
 						trap_Cvar_SetValue( "r_fastSky", 1 );
 						trap_Cvar_SetValue( "r_inGameVideo", 0 );
@@ -1159,7 +1171,11 @@ static void UI_Update( const char *name )
 						trap_Cvar_SetValue( "r_lodbias", 2 );
 						trap_Cvar_SetValue( "r_colorbits", 16 );
 						trap_Cvar_SetValue( "r_depthbits", 16 );
+						#ifdef PANDORA
+						trap_Cvar_SetValue( "r_mode", 11 );
+						#else
 						trap_Cvar_SetValue( "r_mode", 3 );
+						#endif
 						trap_Cvar_SetValue( "r_picmip", 2 );
 						trap_Cvar_SetValue( "cg_shadows", 0 );
 						trap_Cvar_SetValue( "cg_brassTime", 0 );

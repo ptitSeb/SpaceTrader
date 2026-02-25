@@ -182,7 +182,8 @@ Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
 
 #define DLL_EXT ".so"
 
-#define __debugbreak() asm("int $3")
+//#define __debugbreak() asm("int $3")
+#define __debugbreak()
 
 #endif
 

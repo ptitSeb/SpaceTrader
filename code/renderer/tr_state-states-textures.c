@@ -424,6 +424,12 @@ static struct
 	{ "NearestMipLinear", GL_NEAREST_MIPMAP_LINEAR, GL_NEAREST, GL_NEAREST },
 	{ "LinearMipLinear", GL_LINEAR_MIPMAP_LINEAR, GL_LINEAR, GL_LINEAR },
 	{ "AnisoMipLinear", GL_LINEAR_MIPMAP_LINEAR, GL_LINEAR, GL_LINEAR },
+	{ "GL_NEAREST", GL_NEAREST, GL_NEAREST, GL_NEAREST },
+	{ "GL_LINEAR", GL_LINEAR, GL_LINEAR, GL_LINEAR },
+	{ "GL_NEAREST_MIPMAP_NEAREST", GL_NEAREST_MIPMAP_NEAREST, GL_NEAREST, GL_NEAREST },
+	{ "GL_LINEAR_MIPMAP_NEAREST", GL_LINEAR_MIPMAP_NEAREST, GL_LINEAR, GL_LINEAR },
+	{ "GL_NEAREST_MIPMAP_LINEAR", GL_NEAREST_MIPMAP_LINEAR, GL_NEAREST, GL_NEAREST },
+	{ "GL_LINEAR_MIPMAP_LINEAR", GL_LINEAR_MIPMAP_LINEAR, GL_LINEAR, GL_LINEAR },
 };
 
 void R_StateSetTextureModeCvar( const char *string )
@@ -436,7 +442,7 @@ void R_StateSetTextureModeCvar( const char *string )
 
 	if( i == lengthof( modes ) )
 	{
-		ri.Printf (PRINT_ALL, "bad filter name\n");
+		ri.Printf (PRINT_ALL, "bad filter name (%s)\n", string);
 		return;
 	}
 

@@ -81,7 +81,7 @@ snd_stream_t *S_CodecUtilOpen(const char *filename, snd_codec_t *codec);
 void S_CodecUtilClose(snd_stream_t *stream);
 
 // WAV Codec
-#if 0
+#if 1
 extern snd_codec_t wav_codec;
 void *S_WAV_CodecLoad(const char *filename, snd_info_t *info);
 snd_stream_t *S_WAV_CodecOpenStream(const char *filename);
